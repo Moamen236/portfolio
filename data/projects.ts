@@ -3,6 +3,8 @@ export type Diagram = {
   nodes: DiagramNode[];
   edges: [string, string][];
   frame?: { label: string; x: number; y: number; w: number; h: number };
+  /** Layer names over the four node columns (x = 66, 196, 326, 456). */
+  columns?: string[];
 };
 
 export type Project = {
@@ -44,6 +46,7 @@ export const projects: Project[] = [
       "Owned production infrastructure, deployment and security hardening.",
     ],
     diagram: {
+      columns: ["Clients", "API", "Workflows & data", "Integrations"],
       nodes: [
         { id: "app", label: "Doctor app", x: 66, y: 70, note: "Mobile client on the REST API" },
         { id: "portal", label: "HCP portal", x: 66, y: 190, note: "Blade portal for hospitals and HCPs" },
@@ -85,6 +88,7 @@ export const projects: Project[] = [
       "Handled deployment, reporting and production improvements.",
     ],
     diagram: {
+      columns: ["Client", "Services", "Features", "Data & media"],
       nodes: [
         { id: "web", label: "Next.js app", x: 66, y: 130, note: "Attendee interface with GSAP motion" },
         { id: "api", label: "Laravel API", x: 196, y: 70, note: "Registration, speakers, branches" },
@@ -129,6 +133,7 @@ export const projects: Project[] = [
       "Added Redis caching and a Dockerized environment.",
     ],
     diagram: {
+      columns: ["Tenants", "Frontend", "API", "Data & jobs"],
       nodes: [
         { id: "a", label: "Tenant A", x: 66, y: 60 },
         { id: "b", label: "Tenant B", x: 66, y: 130 },
@@ -170,6 +175,7 @@ export const projects: Project[] = [
       "Integrated the assistant with existing business systems.",
     ],
     diagram: {
+      columns: ["Input", "Processing", "Retrieval", "Generation"],
       nodes: [
         { id: "src", label: "Sources", x: 66, y: 70, note: "Existing business systems" },
         { id: "proc", label: "Processing", x: 196, y: 70, note: "Clean, chunk, enrich" },

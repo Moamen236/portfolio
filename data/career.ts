@@ -9,6 +9,9 @@ export const journey: {
   company: string;
   detail: string;
   scope: Layer[];
+  /** `branch`: ran in parallel with the main line (part-time). */
+  lane?: "branch";
+  current?: boolean;
 }[] = [
   {
     period: "2020 – 2021",
@@ -31,6 +34,7 @@ export const journey: {
     phase: "Payments & marketplace",
     role: "Mid-level Full Stack Developer, part-time",
     company: "Daldart",
+    lane: "branch",
     detail: "PSP and payment-related systems, and the Fixawy marketplace platform.",
     scope: ["Frontend", "Backend"],
   },
@@ -49,6 +53,7 @@ export const journey: {
     company: "Orevan",
     detail: "Features owned from requirement to deployment. Jira delivery, pull request review, servers and production stability.",
     scope: ["Frontend", "Backend", "Infrastructure", "Ownership"],
+    current: true,
   },
 ];
 

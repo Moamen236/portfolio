@@ -5,6 +5,9 @@ export const profile = {
     "I build scalable web applications, enterprise platforms, APIs, and digital products — from architecture to production.",
   seoDescription:
     "Senior Full Stack Developer building scalable web applications, enterprise platforms, APIs, SaaS products, and production systems.",
+  // Portrait in /public. Leave src empty to show the MA plate instead.
+  // Best: a transparent-background PNG/WebP cutout, about 1000 × 1250.
+  avatar: { src: "", alt: "Portrait of Moamen Ali" },
   // Leave a link empty to hide it everywhere on the site.
   links: {
     email: "moamen.ali107@gmail.com",

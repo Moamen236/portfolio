@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { navItems, profile } from "@/data/profile";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
+import { Monogram } from "@/components/identity/Monogram";
 
 export function Nav() {
   const root = useRef<HTMLDivElement>(null);
@@ -89,7 +90,8 @@ export function Nav() {
         }`}
       >
         <nav aria-label="Main" className="container-x flex h-16 items-center justify-between">
-          <a href="#top" className="font-semibold tracking-tight" onClick={() => setOpen(false)}>
+          <a href="#top" className="flex items-center gap-2.5 font-semibold tracking-tight" onClick={() => setOpen(false)}>
+            <Monogram size={18} nodes={false} />
             {profile.name}
           </a>
   

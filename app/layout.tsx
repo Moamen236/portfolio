@@ -1,10 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import { Schibsted_Grotesk, JetBrains_Mono } from "next/font/google";
 import { profile, siteUrl, socialLinks } from "@/data/profile";
+import { Intro } from "@/components/identity/Intro";
+import { Cursor } from "@/components/animations/Cursor";
 import "./globals.css";
 
 const sans = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-schibsted", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap", weight: ["400"] });
+
+const INIT_SCRIPT = `(function(){var c=document.documentElement.classList;c.add("js");try{if(sessionStorage.getItem("intro")||matchMedia("(prefers-reduced-motion: reduce)").matches)c.add("no-intro")}catch(e){c.add("no-intro")}})()`;
 
 const title = `${profile.name} — ${profile.role}`;
 
@@ -45,8 +49,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        {/* Lets CSS pre-hide hero text only when JS will animate it in. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* `js` lets CSS pre-hide text GSAP will reveal; `no-intro` skips the intro on repeat visits and for reduced motion. */}
+        <script dangerouslySetInnerHTML={{ __html: INIT_SCRIPT }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }} />
       </head>
       <body>
@@ -56,7 +60,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
+        <Intro />
         {children}
+        <Cursor />
       </body>
     </html>
   );

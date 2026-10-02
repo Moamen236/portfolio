@@ -84,12 +84,24 @@ export function Schematic({
     <figure className={className}>
       <svg
         ref={root}
-        viewBox={`0 0 ${width} ${height}`}
+        viewBox={diagram.columns ? `0 -28 ${width} ${height + 28}` : `0 0 ${width} ${height}`}
         role={title ? "img" : undefined}
         aria-label={title || undefined}
         aria-hidden={title ? undefined : true}
         className="block h-auto w-full overflow-visible"
       >
+        {diagram.columns?.map((label, i) => {
+          const x = 66 + i * 130;
+          return (
+            <g key={label} aria-hidden="true">
+              <line x1={x} x2={x} y1={-4} y2={height} stroke="currentColor" strokeOpacity={0.1} strokeDasharray="2 4" />
+              <text x={x} y={-12} textAnchor="middle" fontSize={10} className="fill-current font-mono" opacity={0.55}>
+                {label}
+              </text>
+            </g>
+          );
+        })}
+
         {diagram.frame && (
           <g ref={frameRef}>
             <rect

@@ -1,23 +1,29 @@
 import { stack } from "@/data/career";
 import { Reveal } from "@/components/animations/Reveal";
+import { Terminal } from "./Terminal";
 
 export function About() {
   return (
     <section id="about" aria-labelledby="about-title" className="border-t border-line py-24 md:py-36">
       <Reveal className="container-x">
-        <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-10">
-          <h2 id="about-title" data-reveal className="h2 max-w-[12ch]">
-            From schema to server.
-          </h2>
-          <div data-reveal className="space-y-5 text-lg md:text-xl">
-            <p className="text-pretty">
-              Since 2020 I&apos;ve built software for clients and internal teams: Laravel back ends, React and
-              Next.js front ends, and the Linux, Docker and CI/CD layer underneath them.
-            </p>
-            <p className="text-pretty text-slate">
-              At Orevan I own features end to end. I plan the work in Jira, review pull requests, deploy, and keep
-              production stable — working directly with clients to turn requirements into systems.
-            </p>
+        <div className="grid items-end gap-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-16">
+          <div>
+            <h2 id="about-title" data-reveal className="h2 max-w-[12ch]">
+              From schema to server.
+            </h2>
+            <div data-reveal className="mt-8 max-w-2xl space-y-5 text-lg md:text-xl">
+              <p className="text-pretty">
+                Since 2020 I&apos;ve built software for clients and internal teams: Laravel back ends, React and
+                Next.js front ends, and the Linux, Docker and CI/CD layer underneath them.
+              </p>
+              <p className="text-pretty text-slate">
+                At Orevan I own features end to end. I plan the work in Jira, review pull requests, deploy, and keep
+                production stable — working directly with clients to turn requirements into systems.
+              </p>
+            </div>
+          </div>
+          <div data-reveal>
+            <Terminal />
           </div>
         </div>
 

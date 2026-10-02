@@ -65,6 +65,8 @@ export function Projects() {
     gsap.to(row.querySelector("[data-tint]"), { scaleY: on ? 1 : 0, duration: d, ease: "power3.out" });
     gsap.to(row.querySelectorAll("[data-num]"), { yPercent: on ? -100 : 0, duration: d, ease: "power3.out" });
     gsap.to(row.querySelector("[data-arrow]"), { x: on ? 6 : 0, duration: d, ease: "power3.out" });
+    gsap.to(row.querySelector("[data-title]"), { x: on ? 8 : 0, duration: d, ease: "power3.out" });
+    gsap.to(row.querySelector("[data-meta]"), { autoAlpha: on ? 1 : 0, y: on ? 0 : 6, duration: d, ease: "power3.out" });
 
     const canPreview = window.matchMedia(FINE_POINTER).matches && motion.current;
     const show = on && canPreview && open !== project?.slug;
@@ -95,6 +97,7 @@ export function Projects() {
                   type="button"
                   aria-expanded={isOpen}
                   aria-controls={`panel-${p.slug}`}
+                  data-cursor={isOpen ? "Close" : "Open"}
                   onClick={() => {
                     setOpen(isOpen ? null : p.slug);
                     gsap.to(preview.current, { autoAlpha: 0, duration: 0.2 });
@@ -109,13 +112,18 @@ export function Projects() {
                     <span data-num className="block text-accent">{num}</span>
                   </span>
                   <span className="block">
-                    <span className="block text-[length:var(--text-h3)] font-semibold leading-tight tracking-tight md:text-[2.1rem]">
+                    <span data-title className="block text-[length:var(--text-h3)] font-semibold leading-tight tracking-tight md:text-[2.1rem]">
                       {p.name}
                     </span>
                     <span className="mt-1.5 block max-w-xl text-pretty text-slate">{p.summary}</span>
                     <span className="mt-3 block text-sm text-slate md:hidden">{p.tags.join(" · ")}</span>
                   </span>
-                  <span className="hidden text-sm text-slate md:block">{p.tags.join(" · ")}</span>
+                  <span className="relative hidden text-sm text-slate md:block">
+                    <span data-meta className="invisible absolute bottom-full left-0 mb-1.5 block font-mono text-[11px] text-accent">
+                      {p.role}
+                    </span>
+                    {p.tags.join(" · ")}
+                  </span>
                   <span className="flex items-center justify-end gap-2 pt-1 text-[0.95rem] font-medium md:pr-2">
                     <span className="hidden sm:inline">{isOpen ? "Close" : "Explore"}</span>
                     <span data-arrow aria-hidden="true" className="inline-block">
@@ -150,7 +158,7 @@ export function Projects() {
         className="pointer-events-none invisible fixed top-0 left-0 z-40 hidden w-[24rem] rounded-xl border border-line bg-surface p-5 text-ink shadow-[0_30px_60px_-30px_rgba(18,23,34,0.35)] md:block"
       >
         {hovered?.diagram ? (
-          <Schematic diagram={hovered.diagram} title="" pulses={false} active={false} />
+          <Schematic key={hovered.slug} diagram={hovered.diagram} title="" pulses={false} />
         ) : hovered ? (
           <div className="flex aspect-[2/1] flex-col justify-end">
             <p className="text-2xl font-semibold tracking-tight">{hovered.name}</p>
@@ -201,6 +209,7 @@ function ProjectDetail({ project: p, open }: { project: Project; open: boolean }
       </div>
       {p.diagram && (
         <div className="self-start md:sticky md:top-24 md:pt-2">
+          <h3 className="mb-3 font-semibold">Architecture</h3>
           <div className="rounded-xl border border-line bg-surface p-4 md:p-6">
             <Schematic diagram={p.diagram} active={open} interactive title={`${p.name} architecture`} />
           </div>

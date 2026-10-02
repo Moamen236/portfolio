@@ -1,11 +1,12 @@
-import { ownership, security } from "@/data/engineering";
+import { security } from "@/data/engineering";
 import { Reveal } from "@/components/animations/Reveal";
 import { Pipeline } from "./Pipeline";
+import { Modules } from "./Modules";
 
 export function Engineering() {
   return (
     <section id="engineering" aria-labelledby="engineering-title" className="border-t border-line">
-      <Reveal className="container-x py-24 md:py-36">
+      <Reveal className="container-x pt-24 pb-12 md:pt-36 md:pb-16">
         <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-10">
           <h2 id="engineering-title" data-reveal className="h2">
             Beyond writing code
@@ -15,15 +16,10 @@ export function Engineering() {
             what happens when something breaks.
           </p>
         </div>
-        <div className="mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 md:mt-24 lg:grid-cols-4">
-          {ownership.map((o) => (
-            <div key={o.title} data-reveal>
-              <h3 className="border-t-2 border-accent pt-4 text-lg font-semibold">{o.title}</h3>
-              <p className="mt-2 text-pretty text-slate">{o.body}</p>
-            </div>
-          ))}
-        </div>
       </Reveal>
+      <div className="container-x pb-24 md:pb-36">
+        <Modules />
+      </div>
 
       <Pipeline />
 
