@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f2f3f5;
+  --color-surface: #ffffff;
+  --color-ink: #121722;
+  --color-slate: #5a6372;
+  --color-line: #d5d9e0;
+  --color-accent: #2b44e0;
+  --color-accent-tint: #e6e9fb;
+  --color-night: #101827;
+  --color-night-raised: #172136;
+  --color-night-line: #2a3550;
+  --color-night-text: #a9b3c7;
+  --color-accent-soft: #8ea0ff;
+
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --text-display: clamp(3.4rem, 11.5vw, 10rem);
+  --text-h2: clamp(2rem, 4.2vw, 3.4rem);
+  --text-h3: clamp(1.35rem, 2vw, 1.6rem);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+    /* Hero copy is hidden only until GSAP reveals it; no-JS and reduced-motion users never see it hidden. */
+    .js [data-hero-reveal] { visibility: hidden; }
+    .js [data-char] { transform: translateY(105%); }
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  section[id] { scroll-margin-top: 4.5rem; }
+  ::selection { background: var(--color-accent); color: #fff; }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .on-night :focus-visible { outline-color: var(--color-accent-soft); }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) { .container-x { padding-inline: 2.5rem; } }
+
+  .h2 {
+    font-size: var(--text-h2);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  .lede {
+    color: var(--color-slate);
+    font-size: 1.125rem;
+    max-width: 38rem;
+    text-wrap: pretty;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s ease;
+  }
+  .link-underline:hover, .link-underline:focus-visible { background-size: 100% 1px; }
+}
