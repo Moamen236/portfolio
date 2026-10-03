@@ -34,6 +34,10 @@
     .js [data-hero-reveal] { visibility: hidden; }
     .js [data-char] { transform: translateY(105%); }
     .js:not(.no-intro) .intro { display: flex; }
+    /* Loading screen starts undrawn so nothing flashes before GSAP takes over. */
+    .intro [data-mono-trace] path,
+    .intro [data-mono-depth] path { stroke-dashoffset: 1; }
+    .intro [data-mono-node] { opacity: 0; }
     .js [data-portrait-frame] { clip-path: inset(100% 0% 0% 0% round 1.25rem); }
     .js [data-portrait-mark] path { stroke-dashoffset: 1; }
     .js [data-portrait-mark] circle,
