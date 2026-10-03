@@ -14,7 +14,7 @@ function Marker({ current, index, className = "" }: { current?: boolean; index?:
   return (
     <span
       data-git-node={index ?? ""}
-      className={`block size-3.5 rounded-full border-2 border-accent ${current ? "bg-accent shadow-[0_0_0_6px_rgb(43_68_224/0.14)]" : "bg-paper"} ${className}`}
+      className={`block size-3.5 rounded-full border-2 border-accent ${current ? "bg-accent shadow-[0_0_0_6px_color-mix(in_srgb,var(--color-accent)_16%,transparent)]" : "bg-paper"} ${className}`}
     />
   );
 }

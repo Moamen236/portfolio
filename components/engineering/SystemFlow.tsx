@@ -17,10 +17,9 @@ type Props = {
   start?: string;
 };
 
-const TONES = {
-  light: { idle: "#c3c9d3", on: "#2b44e0", fill: "#f2f3f5", text: "#5a6372" },
-  night: { idle: "#2a3550", on: "#8ea0ff", fill: "#101827", text: "#7c879d" },
-};
+// The night band is dark in both themes, so its heading colours can be fixed values.
+const WORD_DIM = "#7c879d";
+const WORD_LIT = "#f2f3f5";
 
 /**
  * The site's signature: connected nodes that draw in when they enter the viewport,
@@ -28,7 +27,6 @@ const TONES = {
  */
 export function SystemFlow({ steps, variant = "full", tone = "light", label, className = "", lightWords = false, start = "top 80%" }: Props) {
   const root = useRef<HTMLDivElement>(null);
-  const t = TONES[tone];
   const night = tone === "night";
 
   useGSAP(
@@ -55,14 +53,14 @@ export function SystemFlow({ steps, variant = "full", tone = "light", label, cla
         let started = false;
         const enter = gsap.timeline({ paused: true, onComplete: () => void ((started = true), loop.play()) });
         enter
-          .fromTo(dots, { borderColor: t.idle, backgroundColor: t.fill }, { borderColor: t.on, backgroundColor: t.on, duration: 0.3, stagger: 0.12 })
+          .fromTo(dots, { scale: 0.5, opacity: 0.3 }, { scale: 1, opacity: 1, duration: 0.3, stagger: 0.12 })
           .fromTo(q("[data-flow-conn] > span"), { scale: 0 }, { scale: 1, duration: 0.3, stagger: 0.12, ease: "none" }, 0.12)
           .from(q("[data-flow-text]"), { autoAlpha: 0, y: 8, duration: 0.4, stagger: 0.06, ease: "power2.out" }, 0);
 
         if (lightWords)
           steps.forEach((s, i) => {
             const word = s.word && document.querySelector(`[data-word-heading="${s.word}"]`);
-            if (word) enter.fromTo(word, { color: t.text }, { color: night ? "#ffffff" : "#121722", duration: 0.3 }, i * 0.12);
+            if (word) enter.fromTo(word, { color: WORD_DIM }, { color: WORD_LIT, duration: 0.3 }, i * 0.12);
           });
 
         ScrollTrigger.create({
@@ -84,9 +82,9 @@ export function SystemFlow({ steps, variant = "full", tone = "light", label, cla
     { scope: root }
   );
 
-  const dotClass = "block shrink-0 rounded-full border-2";
-  const dotStyle = { borderColor: t.on, backgroundColor: t.on };
   const fill = night ? "bg-accent-soft" : "bg-accent";
+  const dotClass = `block shrink-0 rounded-full border-2 ${night ? "border-accent-soft" : "border-accent"} ${fill}`;
+  const glow = night ? "var(--color-accent-soft)" : "var(--color-accent)";
   const track = night ? "bg-night-line" : "bg-line";
 
   const light = (
@@ -94,7 +92,7 @@ export function SystemFlow({ steps, variant = "full", tone = "light", label, cla
       data-flow-light
       aria-hidden="true"
       className={`pointer-events-none invisible absolute top-0 left-0 z-10 -mt-1 -ml-1 size-2 rounded-full ${fill}`}
-      style={{ boxShadow: `0 0 0 4px ${night ? "rgb(142 160 255 / .18)" : "rgb(43 68 224 / .14)"}, 0 0 14px ${t.on}` }}
+      style={{ boxShadow: `0 0 0 4px color-mix(in srgb, ${glow} 18%, transparent), 0 0 14px ${glow}` }}
     />
   );
 
@@ -110,7 +108,7 @@ export function SystemFlow({ steps, variant = "full", tone = "light", label, cla
                   night ? "border-night-line bg-night-raised text-night-text" : "border-line bg-surface text-slate"
                 }`}
               >
-                <span data-flow-dot className={`${dotClass} size-1.5 border`} style={dotStyle} />
+                <span data-flow-dot className={`${dotClass} size-1.5 border`} />
                 <span data-flow-text>{s.label}</span>
               </li>
               {i < steps.length - 1 && (
@@ -131,7 +129,7 @@ export function SystemFlow({ steps, variant = "full", tone = "light", label, cla
       <ol className="grid gap-y-7 md:grid-cols-7 md:gap-x-4">
         {steps.map((s, i) => (
           <li key={s.label} className="relative pl-9 md:pl-0 md:pt-9">
-            <span data-flow-dot aria-hidden="true" className={`${dotClass} absolute top-1 left-0 size-3 md:top-0`} style={dotStyle} />
+            <span data-flow-dot aria-hidden="true" className={`${dotClass} absolute top-1 left-0 size-3 md:top-0`} />
             {i < steps.length - 1 && (
               <span
                 data-flow-conn

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { navItems, profile } from "@/data/profile";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 import { Monogram } from "@/components/identity/Monogram";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Nav() {
   const root = useRef<HTMLDivElement>(null);
@@ -94,33 +95,36 @@ export function Nav() {
             <Monogram size={18} nodes={false} />
             {profile.name}
           </a>
+
+          <div className="flex items-center gap-1 md:gap-3">
+            <ul className="relative hidden items-center gap-1 md:flex">
+              {navItems.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    data-nav={item.id}
+                    aria-current={active === item.id ? "true" : undefined}
+                    className={`block px-3 py-2 text-[0.95rem] transition-colors ${active === item.id ? "text-ink" : "text-slate hover:text-ink"}`}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+              <span ref={indicator} aria-hidden="true" className="invisible absolute bottom-0 left-0 h-[2px] w-0 bg-accent" />
+            </ul>
   
-          <ul className="relative hidden items-center gap-1 md:flex">
-            {navItems.map((item) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  data-nav={item.id}
-                  aria-current={active === item.id ? "true" : undefined}
-                  className={`block px-3 py-2 text-[0.95rem] transition-colors ${active === item.id ? "text-ink" : "text-slate hover:text-ink"}`}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-            <span ref={indicator} aria-hidden="true" className="invisible absolute bottom-0 left-0 h-[2px] w-0 bg-accent" />
-          </ul>
-  
-          <button
-            ref={menuButton}
-            type="button"
-            className="-mr-2 px-2 py-2 text-[0.95rem] font-medium md:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? "Close" : "Menu"}
-          </button>
+            <ThemeToggle />
+            <button
+              ref={menuButton}
+              type="button"
+              className="-mr-2 px-2 py-2 text-[0.95rem] font-medium md:hidden"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? "Close" : "Menu"}
+            </button>
+          </div>
         </nav>
       </header>
 

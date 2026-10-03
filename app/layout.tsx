@@ -8,7 +8,9 @@ import "./globals.css";
 const sans = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-schibsted", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap", weight: ["400"] });
 
-const INIT_SCRIPT = `(function(){var c=document.documentElement.classList;c.add("js");try{if(sessionStorage.getItem("intro")||matchMedia("(prefers-reduced-motion: reduce)").matches)c.add("no-intro")}catch(e){c.add("no-intro")}})()`;
+// Runs before paint: enables JS-only styles, skips the loader for reduced motion,
+// and applies the saved theme (or the system one) so there is no flash.
+const INIT_SCRIPT = `(function(){var d=document.documentElement,c=d.classList;c.add("js");var t;try{t=localStorage.getItem("theme")}catch(e){}d.dataset.theme=t||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(matchMedia("(prefers-reduced-motion: reduce)").matches)c.add("no-intro")})()`;
 
 const title = `${profile.name} — ${profile.role}`;
 
@@ -31,7 +33,12 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export const viewport: Viewport = { themeColor: "#f2f3f5" };
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f2f3f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e1117" },
+  ],
+};
 
 const personLd = {
   "@context": "https://schema.org",
@@ -49,7 +56,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        {/* `js` lets CSS pre-hide text GSAP will reveal; `no-intro` skips the intro on repeat visits and for reduced motion. */}
         <script dangerouslySetInnerHTML={{ __html: INIT_SCRIPT }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }} />
       </head>

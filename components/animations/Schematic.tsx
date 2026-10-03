@@ -182,13 +182,13 @@ export function Schematic({
                   strokeOpacity={on ? 1 : 0.45}
                   style={{ transition: "fill 0.2s, stroke 0.2s" }}
                 />
-                <circle cx={12} cy={H / 2} r={2.5} fill={on ? "#fff" : "var(--color-accent)"} />
+                <circle cx={12} cy={H / 2} r={2.5} fill={on ? "var(--color-on-accent)" : "var(--color-accent)"} />
                 <text
                   x={22}
                   y={H / 2 + 3.6}
                   fontSize={11}
                   className="font-mono"
-                  fill={on ? "#fff" : "currentColor"}
+                  fill={on ? "var(--color-on-accent)" : "currentColor"}
                 >
                   {n.label}
                 </text>

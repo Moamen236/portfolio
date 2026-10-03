@@ -40,7 +40,7 @@ export function Terminal() {
       role="group"
     >
       <div className="flex items-center justify-between border-b border-night-line px-4 py-2.5">
-        <span className="text-paper">
+        <span className="text-night-fg">
           <Monogram size={13} nodes={false} />
         </span>
         <span className="font-mono text-[11px]">~/moamen</span>
@@ -50,7 +50,7 @@ export function Terminal() {
           <div key={s.cmd} data-term-block>
             <p>
               <span aria-hidden="true" className="text-accent-soft">$ </span>
-              <span data-term-cmd className="inline-block text-paper">
+              <span data-term-cmd className="inline-block text-night-fg">
                 {s.cmd}
               </span>
             </p>
@@ -58,7 +58,7 @@ export function Terminal() {
               <p
                 key={line}
                 data-term-out
-                className={i === session.length - 1 && j === s.out.length - 1 ? "caret text-paper" : ""}
+                className={i === session.length - 1 && j === s.out.length - 1 ? "caret text-night-fg" : ""}
               >
                 {line}
               </p>

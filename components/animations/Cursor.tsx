@@ -37,7 +37,6 @@ export function Cursor() {
       current = target;
       currentText = text;
       gsap.to(ring.current, { scale: target ? (text ? 2.3 : 1.8) : 1, duration: 0.3, ease: "power3.out" });
-      gsap.to(ring.current, { backgroundColor: target ? "rgba(43,68,224,0.08)" : "rgba(43,68,224,0)", duration: 0.3 });
       if (label.current) label.current.textContent = text;
       gsap.to(label.current, { autoAlpha: text ? 1 : 0, duration: 0.2 });
     };
@@ -64,7 +63,7 @@ export function Cursor() {
     <div ref={node} aria-hidden="true" className="pointer-events-none invisible fixed top-0 left-0 z-[90]">
       <div
         ref={ring}
-        className="absolute -top-3.5 -left-3.5 size-7 rounded-full border border-accent/50"
+        className="absolute -top-3.5 -left-3.5 size-7 rounded-full border border-accent/50 bg-accent/[0.06]"
       />
       <div className="absolute -top-[2px] -left-[2px] size-1 rounded-full bg-accent" />
       <span

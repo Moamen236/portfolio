@@ -45,7 +45,7 @@ export function Portrait() {
           <div
             aria-hidden="true"
             className="absolute inset-0"
-            style={{ background: "radial-gradient(70% 55% at 50% 42%, rgb(255 255 255 / 0.95), rgb(255 255 255 / 0) 70%)" }}
+            style={{ background: "radial-gradient(70% 55% at 50% 42%, color-mix(in srgb, var(--color-surface) 95%, transparent), transparent 70%)" }}
           />
           {src ? (
             <Image

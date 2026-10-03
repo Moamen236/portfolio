@@ -6,7 +6,7 @@ const words = ["Code", "Container", "Server", "Production"];
 
 export function Pipeline() {
   return (
-    <div className="on-night blueprint-night py-24 text-paper md:py-36">
+    <div className="on-night blueprint-night py-24 text-night-fg md:py-36">
       <div className="container-x">
         <div className="grid gap-6 md:gap-8">
           <h2 className="h2" aria-label="Code, container, server, production">

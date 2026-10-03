@@ -10,7 +10,7 @@ const MIN_READY = 0.85; // progress the bar may reach before the page has actual
 const MAX_WAIT = 3000; // never hold the screen longer than this, loaded or not
 
 /**
- * Loading screen, once per session: MA draws, the deploy path fills while fonts and assets load,
+ * Loading screen on every load: MA draws, the deploy path fills while fonts and assets load,
  * then MA opens into MOAMEN ALI and the screen lifts. It never takes pointer events.
  */
 export function Intro() {
@@ -29,9 +29,6 @@ export function Intro() {
         document.dispatchEvent(new Event("intro:done"));
       };
       if (html.classList.contains("no-intro")) return finish();
-      try {
-        sessionStorage.setItem("intro", "1");
-      } catch {}
 
       // Real readiness: web fonts and the window load event (images), capped by MAX_WAIT.
       let ready = false;
@@ -110,7 +107,7 @@ export function Intro() {
           <span
             ref={light}
             className="absolute top-1/2 left-0 -mt-1 -ml-1 size-2 rounded-full bg-accent"
-            style={{ boxShadow: "0 0 0 4px rgb(43 68 224 / .14), 0 0 12px #2b44e0" }}
+            style={{ boxShadow: "0 0 0 4px color-mix(in srgb, var(--color-accent) 14%, transparent), 0 0 12px var(--color-accent)" }}
           />
         </div>
         <div className="mt-4 flex justify-between font-mono text-[11px] text-slate">
